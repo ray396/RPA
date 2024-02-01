@@ -1,6 +1,13 @@
-#ex 2
-nomes = ["Ana", "Bod", "Alice", "Charlie", "Alex", "Tom"]
+"""
+List Comprehensions
+"""
+# Exemplo básico
 
-nomes_a = list(filter(lambda nome: nome[0] == "A", nomes))
+quadrados = [x**2 for x in range(10)]
+print(quadrados)
 
-print(nomes_a)
+quadrados = []
+
+for x in range(10):
+    quadrados.append(x**2)
+print(quadrados)

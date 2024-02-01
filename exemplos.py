@@ -168,3 +168,99 @@ nomes = ["Ana", "Bod", "Alice", "Charlie", "Alex", "Tom"]
 nomes_a = list(filter(lambda nome: nome[0] == "A", nomes))
 
 print(nomes_a)
+
+
+#listas add elementos
+
+#append()
+frutas = ["maca", "banana"]
+frutas.append("uva")
+print(frutas)
+
+#insert()
+frutasdois = ["maracuja", "uva", "abacate"]
+frutasdois.insert(1, "amora")
+print(frutasdois)
+
+
+#listas remover elementos
+
+#remove()
+frutasdois.remove("uva")
+print(frutasdois)
+
+#pop()
+frutasdois.pop(1)
+print(frutasdois)
+
+
+#listas concatenar listas
+
+# +
+num1 = [1, 2, 3]
+num2 = [4, 5, 6]
+
+uniao = num1 + num2
+print(uniao)
+
+#extend()
+num1.extend(num2)
+print(num1)
+
+
+#listas repetir
+
+#*
+
+repeticao = ['a', 'b'] * 3
+print(repeticao)
+
+#listas verificar se um item está na lista
+
+print("uva" in frutas)
+print('uva' in frutasdois)
+
+"""
+Métodos de listas
+"""
+#sort()
+num = [23, 1, 6, 34, 12]
+frutas = ['maca', 'uva', 'damasco', 'banana', 'abacaxi']
+
+num.sort()
+print(num)
+num.sort(reverse=True) #ordenar em ordem decrescente
+print(num)
+
+print("\n--------------\n")
+
+frutas.sort()
+print(frutas)
+frutas.reverse()
+print(frutas)
+
+
+ocorrencias_banana = frutas.count("banana")
+print(ocorrencias_banana)
+
+"""
+Slicing de listas
+"""
+minha_lista = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+# acessar subconjuntos de listas
+
+subconjuntos = minha_lista[1:4]
+print(subconjuntos)
+
+# omissão de indices iniciais ou finais
+primeiros_elementos = minha_lista[:2]
+print(primeiros_elementos)
+
+# pega todos os elementos a partir do indice 2
+elementos_depois_do_indice_2 = minha_lista[2:]
+print(elementos_depois_do_indice_2)
+
+# pega todos os elementos com um passo indicado, no exemplo abaixo é 3
+elementos_alternados = minha_lista[::3]
+print(elementos_alternados)
