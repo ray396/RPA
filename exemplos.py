@@ -467,3 +467,284 @@ nome, idade, nota = estudante_info
 print(f"Nome do estudante: {nome}")
 print(f"Idade: {idade}")
 print(f"Nota Media: {nota}")
+
+"""
+Aplicações Práticas
+"""
+# retornando múltiplos valores de uma função usando tuplas
+
+def analisar_vendas(vendas_A, vendas_B):
+    total_vendido = vendas_A + vendas_B
+    mais_vendido = "A" if vendas_A > vendas_B else "B"
+    return total_vendido, mais_vendido
+
+total, top_produto = analisar_vendas(100, 85)
+print(f"total vendido: {total}")
+print(f"produto mais vendido: {top_produto}")
+print()
+
+# uso de tuplas em loops for
+
+vendas = [(100, 90), (100, 115), (105, 100)]
+for vendas_A, vendas_B in vendas:
+    print(f"vendas a: {vendas_A}, vendas de b: {vendas_B}")
+print()
+
+"""
+Comparando Tuplas
+"""
+# comparando o primeiro elemento
+t1 = (1, 2)
+t2 = (1, 3)
+print(t1 < t2)
+
+# ignorando elementos iguais
+t3 = (1, 2, 3)
+t4 = (1, 2, 4)
+print(t3 < t4)
+
+# comparando tuplas de diferentes tamanhos 
+t1 = (1, 2)
+t2 = (1, 2, 3)
+print(t1 < t2 )
+
+# comparação de elementos de diferentes tipos:
+t1 = (1, "apple")
+t2 = (2, "banana")
+print(t1 < t2)
+
+# exemplo
+t1 = (3, 5)
+t2 = (3, 4, 10)
+t3 = (3, 6)
+t4 = (2, 100)
+t5 = (3, 5)
+
+# qual é maior: t1 ou t2?
+if t1 > t2:
+    r1 = "t1"
+else: 
+    r1 = "t2"
+print(f"{r1} e maior")
+
+print()
+
+# t3 é maior que t1?
+if t3 > t1:
+    r1 = "t3"
+else:
+    r1 = "t1"
+print(f"{r1} e maior")
+
+print()
+
+# compare t4 e t1. Qual é menor?
+if t4 < t1:
+    r1 = "t4"
+else: 
+    r1 = "t1"
+print(f"{r1} e menor")
+
+print()
+
+# t1 e t5 são iguais?
+print(t1 == t5)
+
+"""
+Dicionário
+"""
+livros = {
+    "titulo": "Orgulho e Preconceito",
+    "autor": "Jane Austen",
+    "ano": 1813
+}
+print(livros["titulo"])
+print(livros)
+
+familia = {
+    "pai": {
+        "nome": "Roberto",
+        "idade": 50
+    },
+    "mae": {
+        "nome": "Clara",
+        "idade": 48
+    },
+    "filho": {
+        "nome": "Pedro",
+        "idade": 22
+    }
+}
+
+print(familia["filho"])
+
+"""
+Acessando itens do Dicionário
+"""
+#acessando valores usando chaves
+
+smartphone = {
+    "marca": "Apple",
+    "modelo": "iPhone 12",
+    "cor": "Azul",
+    "capacidade": "128GB",
+    "sistema": "iOS"
+}
+print("metodo direto:")
+print("Marca:", smartphone["marca"])
+
+print("\nmetodo get:")
+print("Modelo:", smartphone.get("modelo"))
+
+# verificando a existência de uma chave
+
+print("\nVerificando a existencia de uma chave")
+
+if "sistema" in smartphone:
+    print("O smartphone roda no sistema:", smartphone["sistema"])
+else:
+    print("Sistema operacional não especificado")
+
+"""
+Operações Básicas com Dicionário
+"""
+produto = {
+    "id": 12345,
+    "nome": "camisa polo",
+    "cor": " vermelho",
+    "preco": 49.90,
+    "estoque": 100
+}
+
+# adicionando itens
+produto["marca"] = "FashionBrand"
+produto["desconto"] = 10
+
+print("Apos adicionar itens:", produto)
+
+# atualizando itens
+produto["preco"] = 59.90
+produto["desconto"] = 15
+
+print("\nApos atualizar itens:", produto)
+
+# removendo itens
+del produto["desconto"] #remove o item desconto
+cor_removida = produto.pop("cor")
+print(f"\ncor removida: {cor_removida}")
+print("\nApos atualizar deletar itens:", produto)
+
+"""
+Métodos de Dicionário
+"""
+livro = {
+    "titulo": "O pequeno principe",
+    "autor": "Antoine de Saint-Exupery",
+    "ano": 1943,
+    "editora": "Reynal & Hitchcock",
+    "preco": 20.5
+}
+
+# keys(), values() e items()
+print("Chaves do dicionario:", list(livro.keys()))
+print("Valores do dicionario:", list(livro.values()))
+print("Itens do dicionario:", list(livro.items()))
+
+# clear()
+copia_livro = livro.copy()
+copia_livro.clear() #remove todos os itens do dicionario
+print("\ndicionario apos clear():", copia_livro)
+
+# setdefault()
+isbn = livro.setdefault("ISBN", "978-3-16-148410-0")
+print("\nISBN", isbn)
+print("Dicionario apos setdefault():", livro)
+
+# update()
+atualizacoes = {
+    "preco": 18.5,
+    "formato": "capa dura"
+}
+livro.update(atualizacoes)
+print("\ndicionario apos update():", livro)
+
+# fromkeys()
+chaves = ["Titulo", "Autor", "sinopse"]
+novo_livro = dict.fromkeys(chaves, "Desconhecido")
+print("\ndicionario criado com fromkeys()", novo_livro)
+
+"""
+Iterando sobre Dicionário
+"""
+notas = {
+    "matematica": 8.5,
+    "portugues": 9.0,
+    "historia": 7.5,
+    "geografia": 8.0,
+    "quimica": 9.5
+}
+
+# interação sobre as chaves do dicionário
+print("materias cursadas pelo aluno:")
+for materia in notas:
+    print(materia)
+
+print("\nmaterias (usando .keys())")
+for materia in notas.keys():
+    print(materia)
+
+# interando apenas sobre os valores (notas)
+print("\nnotas do aluno:")
+total = 0
+for nota in notas.values():
+    print(nota)
+    total += nota
+media = total / len(notas)
+print("\nmedia das notas:", media)
+
+# interando sobre chaves e valores simultaneamente (itens)
+print("\nrelatorio de notas:")
+for materia, nota in notas.items():
+    print(f"{materia}: {nota}")
+
+if media >= 7:
+    print("Aprovado")
+else:
+    print("Reprovado")
+
+"""
+Dicionário Aninhados
+"""
+alunos = {
+
+    "Joao":{
+        "matematica": 8.5,
+        "portugues": 9.0,
+        "historia": 7.5
+    },
+    "Maria":{
+        "matematica": 9.5,
+        "portugues": 8.0,
+        "geografia": 8.7
+    },
+    "Pedro":{
+        "matematica": 7.0,
+        "portugues": 7.5,
+        "historia": 8.0,
+        "geografia": 9.0
+    }
+
+}
+
+# acessando notas do joao em matematica
+
+nota_joao_mate = alunos["Joao"]["matematica"]
+print(f"nota do joao em matematica:", {nota_joao_mate})
+
+# modificando a nota 
+alunos["Maria"]["geografia"] = 9.2
+print(f"nota atualizada de maria em geografia:", {alunos['Maria']['geografia']})
+
+# adicionando um nota 
+alunos["Pedro"]["quimica"] = 8.8
+print(f"nota do pedro em quimica:", {alunos['Pedro']['quimica']})
