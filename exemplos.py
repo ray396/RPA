@@ -748,3 +748,152 @@ print(f"nota atualizada de maria em geografia:", {alunos['Maria']['geografia']})
 # adicionando um nota 
 alunos["Pedro"]["quimica"] = 8.8
 print(f"nota do pedro em quimica:", {alunos['Pedro']['quimica']})
+
+"""
+Compreensão de Dicionário 
+"""
+# 1 itera sobre os numeros de 1 a 5
+quadrado = {x: x**2 for x in range(1, 6)}
+print(quadrado)
+
+quadrado = {}
+for x in range(1, 6):
+    quadrado[x] = x**2
+print(quadrado)
+
+# 2 converter chaves em valores e valores em chaves:
+original = {"a": 1, "b": 2, "c": 3}
+invertido = {valor: chave for chave, valor in original.items()}
+print(invertido)
+
+# 3 filtrando itens de um dicionário:
+precos = {
+    "laptop": 1000,
+    "mouse": 25,
+    "monitor": 200,
+    "teclado": 30,
+    "cabo hdmi": 10
+}
+caros = {produto: preco for produto, preco in precos.items() if preco > 50}
+print(caros)
+
+caros = {}
+for produto, preco in precos.items():
+    if preco > 50:
+        caros[produto] = preco
+
+print(caros)
+
+# 4 dicionário com palavras e seus comprimentos:
+
+palavras = {"python", "compreensao", "dicionario"}
+comprimentos = {palavra: len(palavra) for palavra in palavras}
+print(comprimentos)
+
+palavras = ["python", "compreensao", "dicionario"]
+comprimentos = {}
+for palavra in palavras:
+    comprimentos[palavra] = len(palavra)
+print(comprimentos)
+
+"""
+Compreensão de Dicionário 
+"""
+usuario = {
+    "nome": "joao",
+    "idade": 25,
+    "email": "joao@gmail.com"
+}
+
+def exibir_perfil(perfil):
+    for chave, valor in perfil.items():
+        print(f"{chave}: {valor}")
+
+exibir_perfil(usuario)
+
+# retornando dicionarios de funcoes
+def criar_perfil(nome, idade, email):
+    return{
+        "nome": nome, 
+        "idade": idade, 
+        "email": email
+    }
+novo_usuario = criar_perfil("Ana", 30, "ana@gmail.com")
+
+exibir_perfil(novo_usuario)
+
+"""
+Set - Definição e caracteristicas e criando um conjunto
+"""
+# Definição e caracteristicas
+lista = [1, 2, 2, 3, 4, 4, 5, 5, 5]
+
+#set remove duplicatas de uma lista
+conjunto = set(lista)
+print(conjunto)
+
+conjunto = {1, 2, "python", (4, 5)}
+print(conjunto)
+
+try:
+    conjunto.add([6, 7])
+except TypeError as e:
+    print(f"Erro: {e}")
+
+# criando um conjunto
+s_chaves = {1, 2, 3, 3, 4}
+print(s_chaves)
+
+# criando um conjunto usando a função set()
+s_funcao = set([1, 2, 3, 3, 4])
+print(s_funcao)
+
+"""
+Adicionando e removendo elementos
+"""
+# criando um conjunto inicial
+
+s = {1, 2, 3, 4}
+print(s)
+
+# usando o add()
+s.add(5)
+print(s)
+
+# usando o remove()
+s.remove(2)
+print(s)
+
+"""
+Operação com conjuntos
+"""
+s1 = {1, 2, 3, 4}
+s2 = {3, 4, 5, 6}
+
+# união
+uniao = s1 | s2
+print(uniao)
+
+# usando o método union
+uniao_method = s1.union(s2)
+print(uniao_method)
+
+# intersecção
+interseccao = s1 & s2
+print(interseccao)
+
+# também pode ser dessa forma 
+interseccao_method = s1.intersection(s2)
+print(interseccao_method)
+
+# diferença
+
+diferenca = s1 - s2
+print(diferenca)
+
+diferenca_metodo = s2.difference(s1)
+print(diferenca_metodo)
+
+# diferença simétrica
+diferenca_simetrica = s1 ^ s2
+print(diferenca_simetrica)
