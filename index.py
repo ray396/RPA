@@ -1,13 +1,15 @@
 """
-Outras Funções e Métodos
+Somar uma coluna
 """
-frutas = {"maca", "banana", "laranja","uva","manga"}
+M = [
+    [1, 2, 3, 4],
+    [5, 6, 7, 8],
+    [9, 10, 11, 12],
+    [13, 14, 15, 16]
+]
 
-# len()
-numero_de_frutas = len(frutas)
-print(f"O conjunto tem {numero_de_frutas} de frutas")
-
-# in
-frutas_desejada = "maca"
-if frutas_desejada in frutas:
-    print(f"{frutas_desejada} está no conjunto de frutas")
+print("Matriz")
+for linha in range(4):
+    for coluna in range(4):
+        print(f"{M[linha][coluna]}", end=" ")
+    print()

@@ -897,3 +897,97 @@ print(diferenca_metodo)
 # diferença simétrica
 diferenca_simetrica = s1 ^ s2
 print(diferenca_simetrica)
+
+"""
+Outras Funções e Métodos
+"""
+frutas = {"maca", "banana", "laranja","uva","manga"}
+
+# len()
+numero_de_frutas = len(frutas)
+print(f"O conjunto tem {numero_de_frutas} de frutas")
+
+# in
+frutas_desejada = "maca"
+if frutas_desejada in frutas:
+    print(f"{frutas_desejada} está no conjunto de frutas")
+
+"""
+Imutabilidade e Frozensets
+"""
+#isto é válido
+conjunto_valido = {1, 2, 3, "string", (10, 20)}
+
+#isto não é válido e causará um erro 
+conjunto_invalido = {1, 2.5, "string", [10, 20]}
+
+fs = frozenset([1, 2, 3, 4]) # são imutáveis, não pode add ou remover
+print(fs) 
+
+conjunto_contendo_frozenset = {frozenset([1, 2, 3]), frozenset([4, 5, 6])}
+print(conjunto_contendo_frozenset)
+
+"""
+Aplicações Práticas
+"""
+#removendo duplicatas de uma lista
+alunos_inscritos = ["Ana", "Joao", "Maria", "Ana", "Pedro", "Maria", "Carlos"]
+alunos_unicos = set(alunos_inscritos)
+print(list(alunos_inscritos))
+
+#testar a pertença de um elemento
+aluno = "Carlos"
+if aluno in alunos_unicos:
+    print(f"{aluno} esta inscrito!")
+else:
+    print(f"{aluno} nao esta inscrito")
+
+#inscreveu em ambas as oficinas ou apenas em uma delas
+python_oficina = {"Ana", "Joao", "Maria"}
+ml_oficina = {"Maria", "Pedro", "Lucas"}
+
+ambos = python_oficina & ml_oficina
+print(ambos)
+
+"""
+Matrizes
+"""
+A = [[10, 11, 12], [13, 14, 15], [16, 17, 18]]
+
+print("\nMatriz A")
+
+for linha in range(3):
+    for coluna in range(3):
+        print(f"{A[linha][coluna]}", end=" ")
+    print()
+
+B = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+print("\nMatriz B")
+
+for linha in range(3):
+    for coluna in range(3):
+        print(f"{B[linha][coluna]}", end=" ")
+    print()
+
+D = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+print("\nMatriz D")
+
+for linha in range(3):
+    for coluna in range(3):
+        print(f"{D[linha][coluna]}", end=" ")
+    print()
+
+print("\nSubtracao das matrizes A e B")
+for linha in range(3):
+    for coluna in range(3):
+        D[linha][coluna] = A[linha][coluna] - B[linha][coluna]
+
+for linha in D:
+    print(linha)
+
+print("\nSoma das matrizes A e B")
+for linha in range(3):
+    for coluna in range(3):
+        D[linha][coluna] = A[linha][coluna] + B[linha][coluna]
+        print(f"{D[linha][coluna]}", end=" ")
+    print()
