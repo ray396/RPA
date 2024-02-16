@@ -1,15 +1,11 @@
 """
-Somar uma coluna
+classes e objetos
 """
-M = [
-    [1, 2, 3, 4],
-    [5, 6, 7, 8],
-    [9, 10, 11, 12],
-    [13, 14, 15, 16]
-]
+class Livro:
+    def __init__(self, titulo, autor, ano):
+        self.titulo = titulo
+        self.autor = autor
+        self.ano = ano
+meu_livro = Livro("1984", "George Orwell", 1949)
 
-print("Matriz")
-for linha in range(4):
-    for coluna in range(4):
-        print(f"{M[linha][coluna]}", end=" ")
-    print()
+print(meu_livro.ano)
