@@ -130,3 +130,67 @@ sheet1.write("B2", valorEuro)
 planilhaCriada.close()
 
 os.startfile(caminhoArquivo)
+
+"""
+Extraindo endereço pelos sites dos correios e salvando no excel
+"""
+from openpyxl import load_workbook
+import os
+
+nome_aquivo_cep = "C:/Users/Tecnologia/Documents/GitHub/RPA/PesquisaEndereco_2.xlsx"
+planilhaDadosEndereco = load_workbook(nome_aquivo_cep)
+
+sheet_selecionada = planilhaDadosEndereco["CEP"]
+
+from selenium import webdriver as opcoesSelenium
+from selenium.webdriver.common.keys import Keys
+import pyautogui as tempoEspera
+from selenium.webdriver.common.by import By
+
+navegador = opcoesSelenium.Chrome()
+navegador.get("https://buscacepinter.correios.com.br/app/endereco/index.php")
+tempoEspera.sleep(2)
+
+navegador.find_element(By.NAME, "endereco").send_keys("23548057")
+tempoEspera.sleep(2)
+navegador.find_element(By.NAME, "btn_pesquisar").click()
+tempoEspera.sleep(2)
+
+for linha in range(2, len(sheet_selecionada['A']) + 1):
+    tempoEspera.sleep(2)
+    navegador.find_element(By.ID, "btn_nbusca").click()
+    tempoEspera.sleep(2)
+
+    cepPesquisa = sheet_selecionada['A%s' % linha].value
+    tempoEspera.sleep(2)
+    navegador.find_element(By.NAME, "endereco").send_keys(cepPesquisa)
+    tempoEspera.sleep(2)
+    navegador.find_element(By.NAME, "btn_pesquisar").click()
+    tempoEspera.sleep(2)
+
+    rua = navegador.find_elements(By.XPATH, '//*[@id="resultado-DNEC"]/tbody/tr/td[1]')[0].text
+    print(rua)
+    bairro = navegador.find_elements(By.XPATH, '//*[@id="resultado-DNEC"]/tbody/tr/td[2]')[0].text
+    print(bairro)
+    cidade = navegador.find_elements(By.XPATH, '//*[@id="resultado-DNEC"]/tbody/tr/td[3]')[0].text
+    print(cidade)
+    cep = navegador.find_elements(By.XPATH, '//*[@id="resultado-DNEC"]/tbody/tr/td[4]')[0].text
+    print(cep)
+
+
+    sheet_Dados = planilhaDadosEndereco["Dados"]
+    linhaPlanilha = len(sheet_Dados['A']) + 1
+    
+    colunaA = "A" + str(linhaPlanilha)
+    colunaB = "B" + str(linhaPlanilha)
+    colunaC = "C" + str(linhaPlanilha)
+    colunaD = "D" + str(linhaPlanilha)
+
+    sheet_Dados[colunaA] = rua
+    sheet_Dados[colunaB] = bairro
+    sheet_Dados[colunaC] = cidade
+    sheet_Dados[colunaD] = cep
+
+planilhaDadosEndereco.save(filename=nome_aquivo_cep)
+
+os.startfile(nome_aquivo_cep)
