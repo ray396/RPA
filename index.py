@@ -1,31 +1,39 @@
 """
-preenchendo form web
+openpyxl
 """
-from selenium import webdriver as opcoesSelenium
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-import pyautogui as tempoEspera
+from openpyxl import load_workbook
+import os 
+from openpyxl.styles import Color, PatternFill, Font, Border, Side
+from openpyxl.styles import colors
+from openpyxl.cell import Cell
 
-navegadorFormulario = opcoesSelenium.Chrome()
-navegadorFormulario.get("https://pt.surveymonkey.com/r/WLXYDX2")
-tempoEspera.sleep(2)
+nome_arquivo = "C:/Users/Tecnologia/Documents/GitHub/RPA/InserirDadosPintarCelulas.xlsx"
+planilha_aberta = load_workbook(filename=nome_arquivo)
 
-nome = navegadorFormulario.find_element(By.ID, "166517069")
-nome.send_keys("Rayssa Ellen")
-tempoEspera.sleep(1)
+sheet_selecionada = planilha_aberta['Aluno']
 
-email = navegadorFormulario.find_element(By.ID, "166517072")
-email.send_keys("rayssadantas@gmail.com")
-tempoEspera.sleep(1)
+dadosTabela = [
+    ['Nome', 'Idade'],
+    ['Benerice', 28],
+    ['Caio', 32],
+    ['Nicole', 34],
+    ['Leonardo', 19],
+    ['Amanda', 25]
+]
 
-telefone = navegadorFormulario.find_element(By.ID, "166517070")
-telefone.send_keys("(84) 9 9201-0245")
-tempoEspera.sleep(1)
+for linhaPlanilha in dadosTabela:
+    sheet_selecionada.append(linhaPlanilha)
 
-sobre = navegadorFormulario.find_element(By.ID, "166517073")
-sobre.send_keys("sei automatizar processo e planilhas com python")
-tempoEspera.sleep(1)
+corTitulo = PatternFill(start_color='00FFFF00',
+                       end_color='00FFFF00',
+                       fill_type='solid')
 
-btn_radio = navegadorFormulario.find_element(By.ID, "166517073")
-btn_radio.send_keys("sei automatizar processo e planilhas com python")
-tempoEspera.sleep(10)
+sheet_selecionada["A1"].fill = corTitulo
+sheet_selecionada["B1"].fill = corTitulo
+
+for linha in range(2, len(sheet_selecionada['A']) + 1):
+    celulaColunaA = "A" + linha
+
+planilha_aberta.save(filename=nome_arquivo)
+
+os.startfile(nome_arquivo)
