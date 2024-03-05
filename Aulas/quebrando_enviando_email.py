@@ -4,7 +4,7 @@ Quebrando arquivos e criando emails
 from openpyxl import load_workbook
 import os
 
-nome_arquivo = "C:/Users/Tecnologia/Documents/GitHub/RPA/Quebrar.xlsx"
+nome_arquivo = "/GitHub/RPA/Quebrar.xlsx"
 planilha_aberta = load_workbook(filename=nome_arquivo)
 
 sheet_selecionada = planilha_aberta['Dados']
@@ -52,7 +52,7 @@ from openpyxl import load_workbook
 from openpyxl import Workbook
 import os
 
-nome_arquivo = "C:/Users/Tecnologia/Documents/GitHub/RPA/Quebrar.xlsx"
+nome_arquivo = "/GitHub/RPA/Quebrar.xlsx"
 planilha_aberta = load_workbook(filename=nome_arquivo)
 
 sheet_selecionada = planilha_aberta['Dados']
@@ -84,7 +84,7 @@ for linha in range(2, len(sheet_selecionada['A']) + 1):
 
         nova_planilha.title = "Vendas"
 
-        caminhoNovaPlanilha = "C:/Users/Tecnologia/Documents/GitHub/RPA/"+ sheet_selecionada['A%s' % linha].value +".xlsx"
+        caminhoNovaPlanilha = "/GitHub/RPA/"+ sheet_selecionada['A%s' % linha].value +".xlsx"
 
         selecionaSheetVendasNovaPlanilha = criandoNovoArquivoExcel['Vendas']
 
@@ -113,7 +113,7 @@ from openpyxl.styles import Color, PatternFill, Font, Border, Side
 from openpyxl.styles import colors
 from openpyxl.cell import Cell
 
-nome_arquivo = "C:/Users/Tecnologia/Documents/GitHub/RPA/Quebrar.xlsx"
+nome_arquivo = "/GitHub/RPA/Quebrar.xlsx"
 planilha_aberta = load_workbook(filename=nome_arquivo)
 
 sheet_selecionada = planilha_aberta['Dados']
@@ -164,7 +164,7 @@ for linha in range(2, len(sheet_selecionada['A']) + 1):
 
         nova_planilha.title = "Vendas"
 
-        caminhoNovaPlanilha = "C:/Users/Tecnologia/Documents/GitHub/RPA/"+ sheet_selecionada['A%s' % linha].value +".xlsx"
+        caminhoNovaPlanilha = "GitHub/RPA/"+ sheet_selecionada['A%s' % linha].value +".xlsx"
 
         selecionaSheetVendasNovaPlanilha = criandoNovoArquivoExcel['Vendas']
 
@@ -202,11 +202,34 @@ outlook = win32.Dispatch('outlook.application')
 
 emailOutlook = outlook.CreateItem(0)
 
-emailOutlook.To = "rayssadantas31@gmail.com"
+emailOutlook.To = "rayssa@gmail.com"
 emailOutlook.Subject = "Meu primeiro email usando python e outlook"
 emailOutlook.HTMLBody = """
 <p>Boa noite Rayssa</p>
 <p>Esse é apenas um email de teste</p>
+"""
+
+emailOutlook.save()
+
+
+"""
+Quebrando arquivos e criando emails
+"""
+import win32com.client as win32
+
+outlook = win32.Dispatch('outlook.application')
+
+emailOutlook = outlook.CreateItem(0)
+
+email = "testando@gmail.com"
+variavelNome = "Rayssa"
+
+emailOutlook.To = email
+emailOutlook.Subject = "Meu primeiro email usando python e outlook"
+emailOutlook.HTMLBody = f"""
+<p>Bom dia! <b>{variavelNome}</b></p>
+<p><font color="red"><b><u>Esse é apenas um email de teste</b></u></font></p>
+<p><a href="https://www.google.com/">Clique aqui</a></p>
 """
 
 emailOutlook.save()

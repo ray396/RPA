@@ -4,7 +4,7 @@ openpyxl
 from openpyxl import load_workbook
 import os 
 
-nome_arquivo = "C:/Users/Tecnologia/Documents/GitHub/RPA/DeletarLinhaColuna.xlsx"
+nome_arquivo = "DeletarLinhaColuna.xlsx"
 planilha_aberta = load_workbook(filename=nome_arquivo)
 
 sheet_selecionada = planilha_aberta['Aluno']
@@ -25,7 +25,7 @@ openpyxl
 from openpyxl import load_workbook
 import os 
 
-nome_arquivo = "C:/Users/Tecnologia/Documents/GitHub/RPA/InserirDados.xlsx"
+nome_arquivo = "InserirDados.xlsx"
 planilha_aberta = load_workbook(filename=nome_arquivo)
 
 sheet_selecionada = planilha_aberta['Aluno']
@@ -55,7 +55,7 @@ from openpyxl.styles import Color, PatternFill, Font, Border, Side
 from openpyxl.styles import colors
 from openpyxl.cell import Cell
 
-nome_arquivo = "C:/Users/Tecnologia/Documents/GitHub/RPA/InserirDadosPintarCelulas.xlsx"
+nome_arquivo = "InserirDadosPintarCelulas.xlsx"
 planilha_aberta = load_workbook(filename=nome_arquivo)
 
 sheet_selecionada = planilha_aberta['Aluno']

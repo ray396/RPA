@@ -1,17 +1,14 @@
-"""
-Quebrando arquivos e criando emails
-"""
-import win32com.client as win32
+from PyPDF2 import PdfReader
 
-outlook = win32.Dispatch('outlook.application')
+caminhoArquivo = "C:\\Users\\Tecnologia\\Documents\\GitHub\\RPA\\Mercado_Livre.pdf"
 
-emailOutlook = outlook.CreateItem(0)
+arquivo_Mercado_Livre = PdfReader(caminhoArquivo)
+numeroPaginas = len(arquivo_Mercado_Livre.pages)
 
-emailOutlook.To = "rayssadantas31@gmail.com"
-emailOutlook.Subject = "Meu primeiro email usando python e outlook"
-emailOutlook.HTMLBody = """
-<p>Boa noite Rayssa</p>
-<p>Esse é apenas um email de teste</p>
-"""
+print(f"{numeroPaginas} paginas")
 
-emailOutlook.save()
+try:
+    informacoes = arquivo_Mercado_Livre.metadata
+    print(informacoes)
+except ArithmeticError:
+    print("nao foi possivel acessar as informacoes do documento")

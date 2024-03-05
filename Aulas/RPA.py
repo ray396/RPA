@@ -118,7 +118,7 @@ print(valorEuro)
 
 tempoPausaComputador.sleep(6)
 
-caminhoArquivo = "C:/Users/Tecnologia/Documents/GitHub/RPA/dolar_e_euro.xlsx"
+caminhoArquivo = "/GitHub/RPA/dolar_e_euro.xlsx"
 planilhaCriada = xlsxwriter.Workbook(caminhoArquivo)
 sheet1 = planilhaCriada.add_worksheet()
 
@@ -137,7 +137,7 @@ Extraindo endereço pelos sites dos correios e salvando no excel
 from Aulas.openpyxl import load_workbook
 import os
 
-nome_aquivo_cep = "C:/Users/Tecnologia/Documents/GitHub/RPA/PesquisaEndereco_2.xlsx"
+nome_aquivo_cep = "/GitHub/RPA/PesquisaEndereco_2.xlsx"
 planilhaDadosEndereco = load_workbook(nome_aquivo_cep)
 
 sheet_selecionada = planilhaDadosEndereco["CEP"]
@@ -241,7 +241,7 @@ criando arquivo de excel com python
 import xlsxwriter as opcoesDoXlsxWriter
 import os
 
-nomeCaminhoArquivo = 'C:/Users/Tecnologia/Documents/GitHub/RPA/SegundoExemplo.xlsx'
+nomeCaminhoArquivo = '/GitHub/RPA/SegundoExemplo.xlsx'
 minhaPlanilha = opcoesDoXlsxWriter.Workbook(nomeCaminhoArquivo)
 sheetDados = minhaPlanilha.add_worksheet("Dados")
 
@@ -269,7 +269,7 @@ os.startfile(nomeCaminhoArquivo)
 import xlsxwriter as opcoesDoXlsxWriter
 import os
 
-nomeCaminhoArquivo = 'C:/Users/Tecnologia/Documents/GitHub/RPA/MergeCells.xlsx'
+nomeCaminhoArquivo = '/GitHub/RPA/MergeCells.xlsx'
 workbook = opcoesDoXlsxWriter.Workbook(nomeCaminhoArquivo)
 sheetPadrao = workbook.add_worksheet()
 
@@ -296,7 +296,7 @@ criando arquivo de excel com python
 import xlsxwriter as opcoesDoXlsxWriter
 import os
 
-nomeCaminhoArquivo = 'C:/Users/Tecnologia/Documents/GitHub/RPA/formulas.xlsx'
+nomeCaminhoArquivo = 'formulas.xlsx'
 minhaPlanilha = opcoesDoXlsxWriter.Workbook(nomeCaminhoArquivo)
 sheetDados = minhaPlanilha.add_worksheet("Dados")
 
@@ -335,7 +335,7 @@ criando arquivo de excel com python
 import xlsxwriter as opcoesDoXlsxWriter
 import os
 
-nomeCaminhoArquivo = 'C:/Users/Tecnologia/Documents/GitHub/RPA/formulas.xlsx'
+nomeCaminhoArquivo = '/RPA/formulas.xlsx'
 minhaPlanilha = opcoesDoXlsxWriter.Workbook(nomeCaminhoArquivo)
 sheetDados = minhaPlanilha.add_worksheet("Dados")
 
