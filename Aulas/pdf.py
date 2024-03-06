@@ -43,3 +43,47 @@ for linha in arquivoBlocodeNotas:
             else: 
                 print("Reprovado(a) por media")
         print("-------------------------")
+
+
+from PyPDF2 import PdfReader
+
+caminhoArquivo = "C:\\Users\\Tecnologia\\Documents\\GitHub\\RPA\\Mercado_Livre.pdf"
+
+arquivo_Mercado_Livre = PdfReader(caminhoArquivo)
+numeroPaginas = len(arquivo_Mercado_Livre.pages)
+
+print(f"{numeroPaginas} paginas")
+
+try:
+    informacoes = arquivo_Mercado_Livre.metadata
+    print(informacoes)
+except ArithmeticError:
+    print("nao foi possivel acessar as informacoes do documento")
+
+
+
+
+from PyPDF2 import PdfReader
+arquivoPDF = PdfReader("C:\\Users\\Tecnologia\\Documents\\GitHub\\RPA\\Evolucao_Amazon.pdf")
+contaNumeroPaginas = len(arquivoPDF.pages)
+
+print(contaNumeroPaginas)
+pagina = arquivoPDF.pages[0]
+textoPagina1 = pagina.extract_text()
+print(textoPagina1)
+
+
+
+from PyPDF2 import PdfReader
+
+try:
+    arquivopdf = PdfReader("Mercado_Livre.pdf")
+    dados = arquivopdf.metadata
+    num_paginas = len(arquivopdf.pages)
+    print("autor:", dados.author if dados.author else "nao disponivel")
+    print("criador:", dados.creator if dados.creator else "nao disponivel")
+    print("Produtor:", dados.producer if dados.producer else "nao disponivel")
+except FileNotFoundError:
+    print("Arquivo pdf nao encontrado. veridique o caminho do arquivo")
+except Exception as e:
+    print(f"Ocorreu um erro: {e}")

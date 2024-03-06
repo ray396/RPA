@@ -1,14 +1,16 @@
-from PyPDF2 import PdfReader
+from IPython.display import display
+import pandas as opcoesPandas
 
-caminhoArquivo = "C:\\Users\\Tecnologia\\Documents\\GitHub\\RPA\\Mercado_Livre.pdf"
+notasAluno_DataFrame = opcoesPandas.DataFrame({
+    "Nome": ["Ana", "Pedro", "Joao"],
+    "Nota 1": [9, 7, 10],
+    "Nota 2": [6, 9, 8],
+    "Nota 3": [7, 5, 10],
+    "Nota 4": [10, 10, 6]
+})
 
-arquivo_Mercado_Livre = PdfReader(caminhoArquivo)
-numeroPaginas = len(arquivo_Mercado_Livre.pages)
+notasAluno_DataFrame["Media"] = (notasAluno_DataFrame["Nota 1"] + notasAluno_DataFrame["Nota 2"] + notasAluno_DataFrame["Nota 3"] + notasAluno_DataFrame["Nota 4"]) / 4
+novaColunaFaltas = [2, 5, 3]
+notasAluno_DataFrame["Faltas"] = novaColunaFaltas
 
-print(f"{numeroPaginas} paginas")
-
-try:
-    informacoes = arquivo_Mercado_Livre.metadata
-    print(informacoes)
-except ArithmeticError:
-    print("nao foi possivel acessar as informacoes do documento")
+display(notasAluno_DataFrame)
