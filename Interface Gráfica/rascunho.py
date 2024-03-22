@@ -1,77 +1,77 @@
 from tkinter import *
-
-tela = Tk()
-tela.title("Interface Gráfica")
-rotulo1 = Label(tela, text="FLAT", relief=FLAT)
-rotulo2 = Label(tela, text="RAISED", relief=RAISED)
-rotulo3 = Label(tela, text="SUNKEN", relief=SUNKEN)
-rotulo4 = Label(tela, text="GROOVE", relief=GROOVE)
-rotulo5 = Label(tela, text="RIDGE", relief=RIDGE)
-
-rotulo1.pack()
-rotulo2.pack()
-rotulo3.pack()
-rotulo4.pack()
-rotulo5.pack()
-
-tela.mainloop()
-
-tela = Tk()
-tela.title("Interface Gráfica")
-rotulo1 = Label(tela, text="Python", relief=FLAT, bg="green", fg="white")
-rotulo2 = Label(tela, text="Python", relief=FLAT, bg="blue", fg="white", font="Times 24")
-
-rotulo1.pack()
-rotulo2.pack()
-
-texto = """ Curso de Tkinter
-Aprendendo como criar
-Interface gráfica com 
-Python
-"""
-formato = Label(tela,
-                font = "Arial 40 bold",
-                text = texto).pack()
-
-tela.mainloop()
-
-
-tela.title("Tela 3 x 3")
-
-for linha in range(5):
-    for coluna in range(3):
-        tabela = Frame(
-            master= tela,
-            relief= RAISED,
-            borderwidth= 1
-        )
-        tabela.grid(row=linha, column= coluna, padx=5, pady=5)
-        label = Label(master=tabela, text=f"Linha {linha}\n Coluna {coluna}")
-        label.pack()
-
-tela.mainloop()
+from tkinter import messagebox
+from tkinter import ttk
 
 janela = Tk()
+janela.geometry("950x350")
+janela.title("TreeView")
 
-janela.title("Botões")
+id = Label(text= "ID", font= "Arial 12")
+id.grid(row=1, column=0, stick="W")
+campoDigitavelID = Entry(font="Arial 12")
+campoDigitavelID.grid(row=1, column=1, stick="W")
 
-def exibirMensagem():
-    print("Ola Mundo!")
+nome = Label(text= "Nome", font= "Arial 12")
+nome.grid(row=1, column=2, stick="W")
+campoDigitavelNome = Entry(font="Arial 12")
+campoDigitavelNome.grid(row=1, column=3, stick="W")
 
-botao = Button(janela, text= "Clique aqui", command= exibirMensagem)
-botao.pack()
+idade = Label(text= "Idade", font= "Arial 12")
+idade.grid(row=1, column=4, stick="W")
+campoDigitavelIdade = Entry(font="Arial 12")
+campoDigitavelIdade.grid(row=1, column=5, stick="W")
 
-janela.mainloop()
+sexo = Label(text= "Sexo", font= "Arial 12")
+sexo.grid(row=1, column=6, stick="W")
+campoDigitavelSexo = Entry(font="Arial 12")
+campoDigitavelSexo.grid(row=1, column=7, stick="W")
 
-janela = Tk()
-janela.title("Botões")
+def addItemTreeview():
+    treeViewDados.insert("", "end", 
+                         values=(str(campoDigitavelID.get()), 
+                                 str(campoDigitavelNome.get()),
+                                 str(campoDigitavelIdade.get()),
+                                 str(campoDigitavelSexo.get())
+                                 ))
+    campoDigitavelNome.delete(0, "end")
+    campoDigitavelIdade.delete(0, "end")
+    campoDigitavelSexo.delete(0, "end")
+    campoDigitavelID.delete(0, "end")
 
-def exibirMensagem():
-    print("Curso de Tkinter!")
+botaoAdicionar = Button(text="Cadastrar",
+                        font= "Arial 20",
+                        command= addItemTreeview)
+botaoAdicionar.grid(row=2, column=0, columnspan=4, stick="NSEW")
 
-entrar = Button(janela, text= "Entrar", command= exibirMensagem)
-entrar.pack()
+estiloJanela = ttk.Style()
+estiloJanela.theme_use("alt")
+estiloJanela.configure(".", font = "Arial 14")
 
-sair = Button(janela, text= "Sair", command= janela.destroy)
-sair.pack()
+treeViewDados = ttk.Treeview(janela, column=(1, 2, 3, 4), show="headings")
+
+treeViewDados.column("1", anchor=CENTER)
+treeViewDados.heading("1", text="ID")
+
+treeViewDados.column("2", anchor=CENTER)
+treeViewDados.heading("2", text="Nome")
+
+treeViewDados.column("3", anchor=CENTER)
+treeViewDados.heading("3", text="Idade")
+
+treeViewDados.column("4", anchor=CENTER)
+treeViewDados.heading("4", text="Sexo")
+
+treeViewDados.insert("", "end", text="1", values=("1", "Allan", 29, "Masculino"))
+treeViewDados.insert("", "end", text="2", values=("2", "Ana", 41, "Feminino"))
+treeViewDados.insert("", "end", text="3", values=("3", "Berenice", 50, "Feminino"))
+treeViewDados.insert("", "end", text="4", values=("4", "Roger", 19, "Masculino"))
+treeViewDados.insert("", "end", text="5", values=("5", "Pedro", 25, "Masculino"))
+
+treeViewDados.grid(row=3, column=0, columnspan=8, stick="NSEW")
+
+botaoDeletar = Button(text="Deletar",
+                        font= "Arial 20",
+                        command= addItemTreeview)
+botaoDeletar.grid(row=2, column=4, columnspan=4, stick="NSEW")
+
 janela.mainloop()

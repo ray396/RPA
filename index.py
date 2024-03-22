@@ -1,77 +1,59 @@
+from selenium import webdriver as opcoesSelenium 
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+import pyautogui as temporEspera
 from tkinter import *
-from tkinter import messagebox
-from tkinter import ttk
 
 janela = Tk()
-janela.geometry("950x350")
-janela.title("TreeView")
+janela.geometry("550x550")
 
-id = Label(text= "ID", font= "Arial 12")
-id.grid(row=1, column=0, stick="W")
-campoDigitavelID = Entry(font="Arial 12")
-campoDigitavelID.grid(row=1, column=1, stick="W")
+instrucao = Label(text = "CEP: ", font= "Arial 25")
+instrucao.grid(row = 1, column = 0, sticky = "W")
 
-nome = Label(text= "Nome", font= "Arial 12")
-nome.grid(row=1, column=2, stick="W")
-campoDigitavelNome = Entry(font="Arial 12")
-campoDigitavelNome.grid(row=1, column=3, stick="W")
+campoDigitavelCEP = Entry(font="Arial 25")
+campoDigitavelCEP.grid(row = 1, column = 1, sticky = "W")
 
-idade = Label(text= "Idade", font= "Arial 12")
-idade.grid(row=1, column=4, stick="W")
-campoDigitavelIdade = Entry(font="Arial 12")
-campoDigitavelIdade.grid(row=1, column=5, stick="W")
+def pesquisaCEP():
+    options = Options()
+    options.headless = True
+    navegador = opcoesSelenium.Chrome(options = options)
+    temporEspera.sleep(1)
+    navegador.get("https://buscacepinter.correios.com.br/app/endereco/index.php")
+    temporEspera.sleep(2)
+    #"59631220"
+    cep = campoDigitavelCEP.get()
+    navegador.find_element(By.NAME, "endereco").send_keys(cep)
+    temporEspera.sleep(1)
+    navegador.find_element(By.NAME, "btn_pesquisar").click()
+    temporEspera.sleep(1)
+    rua = navegador.find_elements(By.XPATH, '//*[@id="resultado-DNEC"]/tbody/tr/td[1]')[0].text
+    lblRua.config(text = "Rua: " + rua)
+    temporEspera.sleep(1)
+    bairro = navegador.find_elements(By.XPATH, '//*[@id="resultado-DNEC"]/tbody/tr/td[2]')[0].text
+    lblbairro.config(text = "Bairro: " + bairro)
+    temporEspera.sleep(1)
+    cidade = navegador.find_elements(By.XPATH, '//*[@id="resultado-DNEC"]/tbody/tr/td[3]')[0].text
+    lblcidade.config(text = "Cidade: " + cidade)
+    temporEspera.sleep(1)
+    cep1 = navegador.find_elements(By.XPATH, '//*[@id="resultado-DNEC"]/tbody/tr/td[4]')[0].text
+    lblcep1.config(text = "CEP: " + cep1)
+    temporEspera.sleep(1)
 
-sexo = Label(text= "Sexo", font= "Arial 12")
-sexo.grid(row=1, column=6, stick="W")
-campoDigitavelSexo = Entry(font="Arial 12")
-campoDigitavelSexo.grid(row=1, column=7, stick="W")
+botaoPesquisar = Button(text="Pesquisar", font="Arial 25",
+                        command = pesquisaCEP)
+botaoPesquisar.grid(row = 2, column = 0, columnspan = 2, sticky = "NSEW")
 
-def addItemTreeview():
-    treeViewDados.insert("", "end", 
-                         values=(str(campoDigitavelID.get()), 
-                                 str(campoDigitavelNome.get()),
-                                 str(campoDigitavelIdade.get()),
-                                 str(campoDigitavelSexo.get())
-                                 ))
-    campoDigitavelNome.delete(0, "end")
-    campoDigitavelIdade.delete(0, "end")
-    campoDigitavelSexo.delete(0, "end")
-    campoDigitavelID.delete(0, "end")
+lblRua = Label(text = "\nRua: -", font= "Arial 25")
+lblRua.grid(row = 3, column = 0, columnspan = 2, sticky = "W")
 
-botaoAdicionar = Button(text="Cadastrar",
-                        font= "Arial 20",
-                        command= addItemTreeview)
-botaoAdicionar.grid(row=2, column=0, columnspan=4, stick="NSEW")
+lblbairro = Label(text = "\nBairro: -", font= "Arial 25")
+lblbairro.grid(row = 4, column = 0, columnspan = 2, sticky = "W")
 
-estiloJanela = ttk.Style()
-estiloJanela.theme_use("alt")
-estiloJanela.configure(".", font = "Arial 14")
+lblcidade = Label(text = "\nCidade: -", font= "Arial 25")
+lblcidade.grid(row = 5, column = 0, columnspan = 2, sticky = "W")
 
-treeViewDados = ttk.Treeview(janela, column=(1, 2, 3, 4), show="headings")
-
-treeViewDados.column("1", anchor=CENTER)
-treeViewDados.heading("1", text="ID")
-
-treeViewDados.column("2", anchor=CENTER)
-treeViewDados.heading("2", text="Nome")
-
-treeViewDados.column("3", anchor=CENTER)
-treeViewDados.heading("3", text="Idade")
-
-treeViewDados.column("4", anchor=CENTER)
-treeViewDados.heading("4", text="Sexo")
-
-treeViewDados.insert("", "end", text="1", values=("1", "Allan", 29, "Masculino"))
-treeViewDados.insert("", "end", text="2", values=("2", "Ana", 41, "Feminino"))
-treeViewDados.insert("", "end", text="3", values=("3", "Berenice", 50, "Feminino"))
-treeViewDados.insert("", "end", text="4", values=("4", "Roger", 19, "Masculino"))
-treeViewDados.insert("", "end", text="5", values=("5", "Pedro", 25, "Masculino"))
-
-treeViewDados.grid(row=3, column=0, columnspan=8, stick="NSEW")
-
-botaoDeletar = Button(text="Deletar",
-                        font= "Arial 20",
-                        command= addItemTreeview)
-botaoDeletar.grid(row=2, column=4, columnspan=4, stick="NSEW")
+lblcep1 = Label(text = "\nCEP: -", font= "Arial 25")
+lblcep1.grid(row = 6, column = 0, columnspan = 2, sticky = "W")
 
 janela.mainloop()
+
