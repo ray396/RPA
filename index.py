@@ -1,59 +1,98 @@
-from selenium import webdriver as opcoesSelenium 
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options
-import pyautogui as temporEspera
-from tkinter import *
+import pygame
+import sys
+import random
+import os
 
-janela = Tk()
-janela.geometry("550x550")
+pygame.init()
 
-instrucao = Label(text = "CEP: ", font= "Arial 25")
-instrucao.grid(row = 1, column = 0, sticky = "W")
+BRANCO = (255, 255, 255)
+PRETO = (0, 0, 0)
 
-campoDigitavelCEP = Entry(font="Arial 25")
-campoDigitavelCEP.grid(row = 1, column = 1, sticky = "W")
+LARGURA_TELA = 600
+ALTURA_TELA = 600
 
-def pesquisaCEP():
-    options = Options()
-    options.headless = True
-    navegador = opcoesSelenium.Chrome(options = options)
-    temporEspera.sleep(1)
-    navegador.get("https://buscacepinter.correios.com.br/app/endereco/index.php")
-    temporEspera.sleep(2)
-    #"59631220"
-    cep = campoDigitavelCEP.get()
-    navegador.find_element(By.NAME, "endereco").send_keys(cep)
-    temporEspera.sleep(1)
-    navegador.find_element(By.NAME, "btn_pesquisar").click()
-    temporEspera.sleep(1)
-    rua = navegador.find_elements(By.XPATH, '//*[@id="resultado-DNEC"]/tbody/tr/td[1]')[0].text
-    lblRua.config(text = "Rua: " + rua)
-    temporEspera.sleep(1)
-    bairro = navegador.find_elements(By.XPATH, '//*[@id="resultado-DNEC"]/tbody/tr/td[2]')[0].text
-    lblbairro.config(text = "Bairro: " + bairro)
-    temporEspera.sleep(1)
-    cidade = navegador.find_elements(By.XPATH, '//*[@id="resultado-DNEC"]/tbody/tr/td[3]')[0].text
-    lblcidade.config(text = "Cidade: " + cidade)
-    temporEspera.sleep(1)
-    cep1 = navegador.find_elements(By.XPATH, '//*[@id="resultado-DNEC"]/tbody/tr/td[4]')[0].text
-    lblcep1.config(text = "CEP: " + cep1)
-    temporEspera.sleep(1)
+tela = pygame.display.set_mode((LARGURA_TELA, ALTURA_TELA))
+pygame.display.set_caption('Quebra-Cabeça')
 
-botaoPesquisar = Button(text="Pesquisar", font="Arial 25",
-                        command = pesquisaCEP)
-botaoPesquisar.grid(row = 2, column = 0, columnspan = 2, sticky = "NSEW")
+def listar_imagens(pasta):
+    extensoes_validas = ['.jpg', '.jpeg', '.png', '.bmp']
+    arquivos = os.listdir(pasta)
+    imagens_validas = []
+    for arquivo in arquivos:
+        extensao = os.path.splitext(arquivo)[1]
+        if extensao in extensoes_validas:
+            caminho_completo = os.path.join(pasta, arquivo)
+            imagens_validas.append(caminho_completo)
+    return imagens_validas
 
-lblRua = Label(text = "\nRua: -", font= "Arial 25")
-lblRua.grid(row = 3, column = 0, columnspan = 2, sticky = "W")
+def desenha_selecao_imagens(imagens):
+    for index, caminho_imagem in enumerate(imagens):
+        pygame.draw.rect(tela, (200, 200, 200), (50, index * 80 + 50, 500, 60))
+        font = pygame.font.Font(None, 36)
+        texto = font.render(os.path.basename(caminho_imagem), True, (50, 50, 50))
+        tela.blit(texto, (60, index * 80 + 65))
 
-lblbairro = Label(text = "\nBairro: -", font= "Arial 25")
-lblbairro.grid(row = 4, column = 0, columnspan = 2, sticky = "W")
+def desenhar_quebra_cabeca():
+    for i, peca in enumerate(pecas):
+        x = i % 3
+        y = i // 3
+        tela.blit(peca[2], (x * TAMANHO_BLOCO_LARGURA, y * TAMANHO_BLOCO_ALTURA))
 
-lblcidade = Label(text = "\nCidade: -", font= "Arial 25")
-lblcidade.grid(row = 5, column = 0, columnspan = 2, sticky = "W")
+imagens = listar_imagens(r'C:\Users\Dev\Documents\GitHub\RPA\Imagens')
 
-lblcep1 = Label(text = "\nCEP: -", font= "Arial 25")
-lblcep1.grid(row = 6, column = 0, columnspan = 2, sticky = "W")
-
-janela.mainloop()
-
+while True:
+    escolhendo_imagem = True
+    while escolhendo_imagem:
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if evento.type == pygame.MOUSEBUTTONDOWN and evento.button == 1:
+                start_click = pygame.time.get_ticks()
+            if evento.type == pygame.MOUSEBUTTONUP and evento.button == 1:
+                end_click = pygame.time.get_ticks()
+                if end_click - start_click < 500:
+                    x, y = pygame.mouse.get_pos()
+                    index = (y - 50) // 80
+                    if 50 < x < 550 and 50 + index * 80 < y < 110 + index * 80 and index < len(imagens):
+                        imagem_escolhida = imagens[index]
+                        escolhendo_imagem = False
+        tela.fill(BRANCO)
+        desenha_selecao_imagens(imagens)
+        pygame.display.flip()
+    imagem = pygame.image.load(imagem_escolhida).convert()
+    imagem = pygame.transform.scale(imagem, (LARGURA_TELA, ALTURA_TELA))
+    TAMANHO_BLOCO_LARGURA = LARGURA_TELA // 3
+    TAMANHO_BLOCO_ALTURA = ALTURA_TELA // 3
+    pecas = []
+    ordem_correta = []
+    for i in range(3): 
+        for j in range(3):  
+            peca = imagem.subsurface(pygame.Rect(i * TAMANHO_BLOCO_LARGURA,
+                                                 j * TAMANHO_BLOCO_ALTURA, 
+                                                 TAMANHO_BLOCO_LARGURA, 
+                                                 TAMANHO_BLOCO_ALTURA))
+            ordem_correta.append((i, j, peca))
+    pecas = ordem_correta.copy()
+    random.shuffle(pecas)
+    selecionado = None
+    jogo_terminado = False
+    while not jogo_terminado:
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if evento.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
+                index = x // TAMANHO_BLOCO_LARGURA + (y // TAMANHO_BLOCO_ALTURA) * 3
+                selecionado = index
+            if evento.type == pygame.MOUSEBUTTONUP:
+                if selecionado is not None:
+                    x, y = pygame.mouse.get_pos()
+                    index = x // TAMANHO_BLOCO_LARGURA + (y // TAMANHO_BLOCO_ALTURA) * 3
+                    pecas[selecionado], pecas[index] = pecas[index], pecas[selecionado]
+                    selecionado = None
+        tela.fill(BRANCO)
+        desenhar_quebra_cabeca()
+        pygame.display.flip()
+        
